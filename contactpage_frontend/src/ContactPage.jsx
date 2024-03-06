@@ -5,20 +5,28 @@ import { FaInstagram, FaGithub, FaLinkedin } from "react-icons/fa";
 import axios from 'axios'
 
 const ContactPage = () => {
+    // For fields of userInputs
     const [inputs, setInputs] = useState({
         name: "",
         emailId: "",
         phone: "",
         message: ""
     })
+
+    // useState vraible whether to send the email or not
     const [sendCopy, setSendCopy] = useState(false)
+
+    // The data is been sending on Google sheets or the email is been sending 
     const [sendingData, setSendingData] = useState(false)
+
+    // Port here comes from the backend app.js
     const port = `${window.location.origin}`
     const change = (e) => {
         const { name, value } = e.target
         setInputs({ ...inputs, [name]: value })
     }
 
+    // It is to add classes on label tags
     const handleFocus = async (e) => {
         e.target.previousElementSibling.classList.add('placeholder-up');
         if (e.target.value) {
@@ -27,6 +35,7 @@ const ContactPage = () => {
 
     };
 
+    // Used to remove classes from label tag
     const handleBlur = (e) => {
         if (!e.target.value) {
             e.target.previousElementSibling.classList.remove('placeholder-up');
@@ -38,14 +47,19 @@ const ContactPage = () => {
     const notify = () => toast.info("Thanks for Contacting!!Soon I'll get in touch with you", {
         icon: false
     });
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setSendingData(true)
+
+        // If any of the field is empty, alert will be displayed and return setting the sendingData as false
         if (!inputs.name || !inputs.emailId || !inputs.phone || !inputs.message) {
             alert("You can't leave any field blank")
             setSendingData(false)
             return
         }
+
+        // If email doesn't have a proper vailidation, alert will be displayed and returned
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(inputs.emailId)) {
             alert("Please enter a valid email address");
@@ -53,6 +67,7 @@ const ContactPage = () => {
             return;
         }
 
+        // If email has to send then this function will be triggered
         if (sendCopy) {
             await axios.post(`${port}/sentMail`, inputs).then((res) => {
                 if (res.data.message === "Wrong Email Address") {
@@ -60,6 +75,7 @@ const ContactPage = () => {
                 }
             })
         }
+        // This try-catch block is to send data in google sheets
         try {
             const data = {
                 Name: inputs.name,
@@ -67,6 +83,7 @@ const ContactPage = () => {
                 Phone: inputs.phone,
                 Message: inputs.message
             }
+            // Sheet-base API here
             await axios.post('https://sheet.best/api/sheets/3ef334fc-2a59-42c8-b351-4e31f0bb5645', data).then((res) => {
                 console.log(res)
                 setInputs({ name: "", emailId: "", phone: "", message: "" })
@@ -155,6 +172,9 @@ const ContactPage = () => {
 
                     <label htmlFor='checkbox' className='text-white lg:text-lg md:text-lg ' style={{ fontFamily: "sans-serif" }}>Send me a copy of this message</label>
                 </div>
+
+                {/* Used Daisy UI component &  tailwind classes along with the sendingData conditional rendering */}
+                {/* If sendinData is true then it will be loaded else it will not */}
                 <button className='px-6 py-3 bg-blue-800 rounded-full text-white outline-none cursor-pointer hover:bg-black hover:text-white focus:bg-black focus:text-white focus:outline-' onClick={handleSubmit} >
                     <span className={sendingData ? 'loading loading-spinner' : ''}>Submit</span>
                 </button>

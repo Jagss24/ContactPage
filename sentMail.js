@@ -2,17 +2,19 @@ import nodemailer from "nodemailer";
 import app from "express";
 
 const router = app.Router();
-
+// Used nodemailer library to sentMail
 router.post("/sentMail", async (req, res) => {
   const { name, phone, emailId, message } = req.body;
   let transporter = nodemailer.createTransport({
     service: "Gmail",
     auth: {
       user: "userhak80@gmail.com",
+      // This is app password for my account
       pass: process.env.GMAIL,
     },
   });
 
+  // This is the context that the mail will consist of
   let mailOptions = {
     from: '"Jagannath Samantra" userhak80@gmail.com',
     to: emailId,
@@ -32,6 +34,7 @@ router.post("/sentMail", async (req, res) => {
     `,
   };
 
+  // Sending mail with try-ctach block error-handling
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       console.log(error);
