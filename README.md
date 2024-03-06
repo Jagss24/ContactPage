@@ -33,6 +33,10 @@ This project is a simple contact form web application built using React framewor
 9. All set to go now.
 
 ## Images
+![CONTACT_PAGE_IMAGE](https://github.com/Jagss24/ContactPage/blob/master/contactpage_img.png)
+
+## Escel sheet link
+[EXCEL_SHEET] (https://docs.google.com/spreadsheets/d/1qlps_CLkRDdj2z0heRsmdaheJiRNESP9X31Wu88vrps/edit#gid=0)
 
 ## Deployed on Vercel
 [LIVE](https://contact-page-e6n3frdcf-jagannaths-projects-3643e96f.vercel.app/)
