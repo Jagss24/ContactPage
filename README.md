@@ -39,7 +39,7 @@ This project is a simple contact form web application built using React framewor
 [Video](https://youtu.be/-PcKXKpOCAk)
 
 ## Gooogle sheet link
-[GOOGLE_SHEET] (https://docs.google.com/spreadsheets/d/1qlps_CLkRDdj2z0heRsmdaheJiRNESP9X31Wu88vrps/edit#gid=0)
+[GOOGLE_SHEET](https://docs.google.com/spreadsheets/d/1qlps_CLkRDdj2z0heRsmdaheJiRNESP9X31Wu88vrps/edit#gid=0)
 
 ## Deployed on Vercel
 [LIVE](https://contact-page-e6n3frdcf-jagannaths-projects-3643e96f.vercel.app/)
